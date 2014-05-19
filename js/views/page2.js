@@ -3,7 +3,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'text!templates/index.html'
+    'text!templates/page2.html'
 
 ], function ($, _, Backbone, appsTemplate) {
     'use strict';

@@ -1,4 +1,11 @@
 /* 2230 */
+lesshat-selector {
+  -lh-property: 0; } 
+@-webkit-keyframes bounce{ 0%{ bottom:25px; } 40%{ bottom:10px; } 100%{ bottom:25px; }}
+@-moz-keyframes bounce{ 0%{ bottom:25px; } 40%{ bottom:10px; } 100%{ bottom:25px; }}
+@-o-keyframes bounce{ 0%{ bottom:25px; } 40%{ bottom:10px; } 100%{ bottom:25px; }}
+@keyframes bounce{ 0%{ bottom:25px; } 40%{ bottom:10px; } 100%{ bottom:25px; };
+}
 html,
 body {
   height: 100%;
@@ -6,6 +13,7 @@ body {
   margin: 0px;
   padding: 0px;
   font-family: "Helvetica", "Trebuchet MS", Arial;
+  overflow: hidden;
 }
 #container {
   width: 100%;
@@ -15,6 +23,70 @@ body {
 #container #workspace {
   width: 100%;
   height: 100%;
+}
+#container #next-page {
+  margin-bottom: 0px;
+  width: 76px;
+  height: 76px;
+  position: absolute;
+  display: block;
+  bottom: 20px;
+  left: 50%;
+  z-index: 10;
+  border-radius: 50%;
+  background: url(../images/sprite.png) 14px 24px no-repeat rgba(0, 0, 0, 0.85);
+  -webkit-animation: bounce 1.2s linear infinite;
+  -moz-animation: bounce 1.2s linear infinite;
+  -o-animation: bounce 1.2s linear infinite;
+  animation: bounce 1.2s linear infinite;
+  opacity: .7;
+}
+#container #nav-bullets {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  height: 76px;
+  margin-top: -38px;
+  z-index: 100;
+  list-style: none;
+}
+#container #nav-bullets li:active,
+#container #nav-bullets li:hover {
+  background-color: transparent;
+  opacity: 1;
+}
+#container #nav-bullets span:hover {
+  opacity: 1;
+}
+#container #nav-bullets li {
+  position: relative;
+  margin-bottom: 12px;
+  width: 10px;
+  height: 10px;
+  background-color: #656565;
+  border: 1px solid #656565;
+  opacity: 0.3;
+  cursor: pointer;
+  border-radius: 50%;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+#container #nav-bullets li span {
+  position: absolute;
+  text-align: right;
+  top: -5px;
+  right: 0;
+  padding-right: 20px;
+  font-size: 13px;
+  color: #a2a2a2;
+  opacity: 0;
+  white-space: nowrap;
+  -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.3s ease-in-out;
+  -o-transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
 }
 #navbar {
   background-color: #007dba;
@@ -33,13 +105,13 @@ body {
   font-size: 20px;
   color: #ffffff;
 }
-#first {
+#page1 {
   margin: 5px auto 0;
   max-width: 600px;
   font-size: 30px;
   text-align: center;
 }
-#first .lines li {
+#page1 .lines li {
   font-family: "Comic Sans MS", "Trebuchet MS", Arial;
   position: relative;
   top: 30px;
@@ -51,7 +123,7 @@ body {
   height: 30px;
   width: 100%;
 }
-#first .logo img {
+#page1 .logo img {
   top: 15px;
   height: 30px;
   position: relative;

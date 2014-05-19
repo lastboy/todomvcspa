@@ -2,14 +2,24 @@
 define([
     'jquery',
     'backbone',
-    'views/index'
-], function ($, Backbone, IndexView) {
+    'views/page1',
+    'views/page2'
+
+], function ($, Backbone, Page1View, Page2View) {
     'use strict';
 
     var hp4mRouter = Backbone.Router.extend({
+
         routes: {
             "": "home",
+            "page/:id": "page",
             "apps/": "apps"
+        },
+
+        pages: [],
+        refs: {
+           p1: Page1View,
+           p2: Page2View
         },
 
         initialize: function () {
@@ -20,7 +30,14 @@ define([
             console.log("[hp4m router] Home call");
 
             // Initialize the application view
-            this.indexView = new IndexView();
+            this.page1View = new Page1View();
+        },
+
+        page: function(id) {
+            console.log("[hp4m page] moving to page: ", id);
+            if (id) {
+                this.pages[id] = new this.refs["p"+id]();
+            }
         },
 
         apps: function () {

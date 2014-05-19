@@ -17,7 +17,7 @@ function _clean() {
 function _generate() {
     _clean();
 
-    content = require("fs").readFileSync('./css/less/first.less', "utf8");
+    content = require("fs").readFileSync('./css/less/page1.less', "utf8");
     _parser.parse(content, function (e, model) {
         if (e) {
             console.error("error occured while parsing the content: ",e);
