@@ -1,0 +1,17 @@
+{
+  "name": "hp4m",
+  "description": "HP4M",
+  "version": "0.0.1",
+  "author": {
+    "name": "arik",
+    "email": "lewin.arik@gmail.com"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "dependencies": {
+    "less": "~1.5.1",
+    "fs.extra": "~1.2.1",
+    "express": "~3.4.7"
+  }
+}
