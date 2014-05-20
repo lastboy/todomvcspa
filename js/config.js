@@ -9,10 +9,16 @@ require.config({
 		underscore: {
 			exports: '_'
 		},
+        "jquery.mousewheel":{
+            deps: [
+                'jquery'
+            ]
+        },
 		backbone: {
 			deps: [
 				'underscore',
-				'jquery'
+				'jquery',
+                "jquery.mousewheel"
 			],
 			exports: 'Backbone'
 		},
@@ -22,11 +28,12 @@ require.config({
 		}
 	},
 	paths: {
-		jquery: '../bower_components/jquery/jquery',
-		underscore: '../bower_components/underscore/underscore',
-		backbone: '../bower_components/backbone/backbone',
-		backboneLocalstorage: '../bower_components/backbone.localStorage/backbone.localStorage',
-		text: '../bower_components/requirejs-text/text'
+		"jquery": '../bower_components/jquery/jquery',
+        "jquery.mousewheel": '../bower_components/jquery-mousewheel/jquery.mousewheel',
+		"underscore": '../bower_components/underscore/underscore',
+		"backbone": '../bower_components/backbone/backbone',
+		"backboneLocalstorage": '../bower_components/backbone.localStorage/backbone.localStorage',
+		"text": '../bower_components/requirejs-text/text'
 	}
 });
 
