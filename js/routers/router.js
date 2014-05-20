@@ -2,10 +2,10 @@
 define([
     'jquery',
     'backbone',
-    'views/page1',
-    'views/page2'
+    'models/navbar',
+    'views/navbar'
 
-], function ($, Backbone, Page1View, Page2View) {
+], function ($, Backbone, Navbar, NavbarView) {
     'use strict';
 
     var hp4mRouter = Backbone.Router.extend({
@@ -16,27 +16,70 @@ define([
             "apps/": "apps"
         },
 
-        pages: [],
+        pages: {},
         refs: {
-           p1: Page1View,
-           p2: Page2View
         },
 
         initialize: function () {
             console.log("[hp4m router] Initialized");
+            this.refs.navbarModel = new Navbar();
+            new NavbarView({model: this.refs.navbarModel});
+
         },
 
         home: function () {
             console.log("[hp4m router] Home call");
-
-            // Initialize the application view
-            this.page1View = new Page1View();
+            this.page("1");
         },
 
         page: function(id) {
+            var refId,
+                viewName,
+                me = this;
+
+            function _pageSize() {
+                var key, counter=0;
+                for (key in me.pages) {
+                    counter++;
+                }
+            }
+
+            function _callback(obj) {
+                me.refs.navbarModel.set(obj);
+            }
+
             console.log("[hp4m page] moving to page: ", id);
+
+            // Initialize the application view
             if (id) {
-                this.pages[id] = new this.refs["p"+id]();
+
+                refId = "p" + id;
+                viewName = "views/page" + id;
+
+                if (!this.refs[refId]) {
+                    // load the view module
+                    this.refs[refId] = require([viewName], function() {
+                        var args = arguments,
+                            view = args[0];
+                        me.pages[id] = new view();
+
+                        _callback({id: id});
+
+                    });
+
+                } else {
+
+                    if (!me.pages[id]) {
+                        // instantiate the view
+                        me.pages[id] = new this.refs[refId]();
+
+                    } else {
+                        // render the view
+                        me.pages[id].render();
+                    }
+
+                    _callback({id: id});
+                }
             }
         },
 
