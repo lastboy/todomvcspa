@@ -16,7 +16,7 @@ define([
 
         },
 
-        initialize: function() {
+        initialize: function () {
             var me = this;
 
             this.listenTo(this.model, 'change', this.render);
@@ -29,25 +29,27 @@ define([
                 counter,
                 out = "",
                 currentPage,
-                arr = [], idx= 1;
+                arr = [], idx = 1;
 
             counter = (this.model.get("counter") || 0);
             currentPage = (this.model.get("id") || 1);
-            for (; idx<counter+1; idx++) {
+            for (; idx < counter + 1; idx++) {
                 arr.push(idx);
             }
-            _.each(arr, function(elt) {
-                var compiledTemplate = _.template( bulletTemplate);
-                    if (currentPage === (elt+"")) {
-                        out += compiledTemplate({idx: elt, classname: "page active"});
+            _.each(arr, function (elt) {
+                var compiledTemplate = _.template(bulletTemplate);
 
-                    } else {
-                        out += compiledTemplate({idx: elt, classname: "page"});
-                    }
+                currentPage = parseInt(currentPage);
+                if (currentPage === elt) {
+                    out += compiledTemplate({idx: elt, classname: "page active"});
+
+                } else {
+                    out += compiledTemplate({idx: elt, classname: "page"});
+                }
 
             }, this);
 
-            $(this.el).html( out );
+            $(this.el).html(out);
 
             return this;
         }

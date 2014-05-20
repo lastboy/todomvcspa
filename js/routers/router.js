@@ -1,11 +1,11 @@
-/*global define*/
 define([
     'jquery',
     'backbone',
+    'routers/uirouter',
     'models/navbar',
     'views/navbar'
 
-], function ($, Backbone, Navbar, NavbarView) {
+], function ($, Backbone, keyrouter, Navbar, NavbarView) {
     'use strict';
 
     var hp4mRouter = Backbone.Router.extend({
@@ -21,10 +21,37 @@ define([
         },
 
         initialize: function () {
+            var me = this;
             console.log("[hp4m router] Initialized");
+
+            // Navigation bar
             this.refs.navbarModel = new Navbar();
             new NavbarView({model: this.refs.navbarModel});
 
+            // key router
+            me.uiroutercallback = function (gap) {
+                var id = me.refs.navbarModel.get("id"),
+                    pageSize = parseInt(me.pagesSize());
+
+                if (id) {
+                    id = parseInt(id);
+                    if (gap === -1) {
+                        if (id > 1) {
+                            me.page(id-1);
+                        }
+                    } else {
+                        if ((id+1) <= pageSize) {
+                            me.page(id+1);
+                        }
+                    }
+                }
+            };
+            keyrouter.init(me.uiroutercallback);
+
+        },
+
+        pagesSize: function () {
+            return this.refs.navbarModel.get("counter");
         },
 
         home: function () {
@@ -32,17 +59,10 @@ define([
             this.page("1");
         },
 
-        page: function(id) {
+        page: function (id) {
             var refId,
                 viewName,
                 me = this;
-
-            function _pageSize() {
-                var key, counter=0;
-                for (key in me.pages) {
-                    counter++;
-                }
-            }
 
             function _callback(obj) {
                 me.refs.navbarModel.set(obj);
@@ -58,7 +78,7 @@ define([
 
                 if (!this.refs[refId]) {
                     // load the view module
-                    this.refs[refId] = require([viewName], function() {
+                    this.refs[refId] = require([viewName], function () {
                         var args = arguments,
                             view = args[0];
                         me.pages[id] = new view();
