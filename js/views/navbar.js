@@ -20,7 +20,7 @@ define([
             var me = this;
 
             this.listenTo(this.model, 'change', this.render);
-            this.model.set({"counter": 2});
+            this.model.set({"counter": 4});
         },
 
         // Re-render

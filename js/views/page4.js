@@ -2,13 +2,13 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'text!templates/page1.html',
+    'text!templates/page4.html',
     'views/base'
 
 ], function ($, _, Backbone, appsTemplate, BaseView) {
     'use strict';
 
-    var Page1View = BaseView.extend({
+    var Page4View = BaseView.extend({
 
         el: $('#workspace'),
 
@@ -49,5 +49,5 @@ define([
 
     });
 
-    return Page1View;
+    return Page4View;
 });

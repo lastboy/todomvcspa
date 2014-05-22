@@ -37,11 +37,11 @@ define([
                     id = parseInt(id);
                     if (gap === -1) {
                         if (id > 1) {
-                            me.page(id-1);
+                            me.page(id - 1, 0);
                         }
                     } else {
-                        if ((id+1) <= pageSize) {
-                            me.page(id+1);
+                        if ((id + 1) <= pageSize) {
+                            me.page(id + 1, 1);
                         }
                     }
                 }
@@ -56,10 +56,10 @@ define([
 
         home: function () {
             console.log("[hp4m router] Home call");
-            this.page("1");
+            this.page("1", 1);
         },
 
-        page: function (id) {
+        page: function (id, direction) {
             var refId,
                 viewName,
                 me = this;
@@ -68,38 +68,63 @@ define([
                 me.refs.navbarModel.set(obj);
             }
 
+            function _processView(id, view) {
+
+                view = (view || me.refs[refId]);
+                if (!me.pages[id]) {
+                    // instantiate the view
+                    me.pages[id] = new view({id: id});
+
+                }
+
+                // render the view
+                if (parseInt(me.pages.previous) !== parseInt(me.pages.current)) {
+
+                    me.pages[me.pages.previous].render({id:me.pages.previous, direction: direction, status: 1, callback: function () {
+
+                        me.pages[id].render({d: id, direction: direction, status: 0});
+
+                    }});
+
+
+                } else {
+
+                    me.pages[id].render({id:id, direction: direction, status: 0});
+                }
+
+
+                _callback({id: id});
+
+            }
+
             console.log("[hp4m page] moving to page: ", id);
 
             // Initialize the application view
             if (id) {
 
+                console.log("page direction: ", direction);
+                me.pages.previous = (me.pages.current || id);
+                me.pages.current = (id || 1);
+
                 refId = "p" + id;
                 viewName = "views/page" + id;
 
-                if (!this.refs[refId]) {
+                if (!me.refs[refId]) {
                     // load the view module
-                    this.refs[refId] = require([viewName], function () {
+                    me.refs[refId] = require([viewName], function () {
                         var args = arguments,
                             view = args[0];
-                        me.pages[id] = new view();
 
-                        _callback({id: id});
+                        _processView(id, view);
 
                     });
 
                 } else {
 
-                    if (!me.pages[id]) {
-                        // instantiate the view
-                        me.pages[id] = new this.refs[refId]();
-
-                    } else {
-                        // render the view
-                        me.pages[id].render();
-                    }
-
-                    _callback({id: id});
+                    _processView(id);
                 }
+
+
             }
         },
 

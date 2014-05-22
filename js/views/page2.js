@@ -3,12 +3,13 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'text!templates/page2.html'
+    'text!templates/page2.html',
+    'views/base'
 
-], function ($, _, Backbone, appsTemplate) {
+], function ($, _, Backbone, appsTemplate, BaseView) {
     'use strict';
 
-    var AppsView = Backbone.View.extend({
+    var Page2View = BaseView.extend({
 
         el: $('#workspace'),
 
@@ -19,20 +20,35 @@ define([
 
         },
 
-        initialize: function() {
-            var me = this;
-            this.render();
+        super: function(methodName, args) {
+            BaseView.prototype[methodName].apply(this, args);
+        },
+
+        initialize: function (options) {
+            this.super("initialize",[options]);
 
         },
 
-        // Re-render the titles of the todo item.
-        render: function () {
-            var me = this;
+        render: function (options) {
+            this.super("render",[options]);
 
-            this.$el.html(this.template());
+
             return this;
+        },
+
+        transitionIn: function (writecallback, callback) {
+
+            this.super("transitionIn",[writecallback, callback]);
+
+        },
+
+        transitionOut: function (writecallback, callback) {
+
+            this.super("transitionOut",[writecallback, callback]);
+
         }
+
     });
 
-    return AppsView;
+    return Page2View;
 });

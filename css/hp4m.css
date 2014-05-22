@@ -18,10 +18,12 @@ body {
   width: 100%;
   height: 100%;
   border: 1px solid gray;
+  position: absolute;
 }
 #container #workspace {
   width: 100%;
   height: 100%;
+  position: absolute;
 }
 #container #next-page {
   margin-bottom: 0px;
@@ -96,7 +98,8 @@ body {
   position: absolute;
   height: 35px;
   width: 100%;
-  top: 0px;
+  top: -1px;
+  z-index: 100000;
 }
 #navbar ul {
   position: absolute;
@@ -113,6 +116,7 @@ body {
   max-width: 600px;
   font-size: 30px;
   text-align: center;
+  top: 50px;
 }
 #page .lines li {
   font-family: "Comic Sans MS", "Trebuchet MS", Arial;
@@ -125,6 +129,15 @@ body {
   margin: 2px auto;
   height: 30px;
   width: 100%;
+  text-shadow: 0 1px 0 #ccc;
+}
+#page h1#counter {
+  position: absolute;
+  left: 20%;
+  top: 40%;
+  font: normal 100px "Comic Sans MS", "Trebuchet MS", Arial;
+  color: #FFFFFF;
+  text-shadow: 0 1px 0 #cccccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbbbbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaaaaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15);
 }
 #page .logo img {
   top: 15px;
