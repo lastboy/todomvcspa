@@ -25,23 +25,6 @@ body {
   height: 100%;
   position: absolute;
 }
-#container #next-page {
-  margin-bottom: 0px;
-  width: 76px;
-  height: 76px;
-  position: absolute;
-  display: block;
-  bottom: 20px;
-  left: 50%;
-  z-index: 10;
-  border-radius: 50%;
-  background: url(../images/sprite.png) 14px 24px no-repeat rgba(0, 0, 0, 0.85);
-  -webkit-animation: bounce 1.2s linear infinite;
-  -moz-animation: bounce 1.2s linear infinite;
-  -o-animation: bounce 1.2s linear infinite;
-  animation: bounce 1.2s linear infinite;
-  opacity: .7;
-}
 #container #nav-bullets {
   position: absolute;
   top: 50%;
@@ -117,6 +100,23 @@ body {
   font-size: 30px;
   text-align: center;
   top: 50px;
+}
+#next-page {
+  margin-bottom: 0px;
+  width: 76px;
+  height: 76px;
+  position: fixed;
+  display: block;
+  bottom: 0px;
+  left: 50%;
+  z-index: 10;
+  border-radius: 50%;
+  background: url(../images/sprite.png) 14px 24px no-repeat rgba(0, 0, 0, 0.85);
+  -webkit-animation: bounce 1.2s linear infinite;
+  -moz-animation: bounce 1.2s linear infinite;
+  -o-animation: bounce 1.2s linear infinite;
+  animation: bounce 1.2s linear infinite;
+  opacity: .7;
 }
 #page .lines li {
   font-family: "Comic Sans MS", "Trebuchet MS", Arial;

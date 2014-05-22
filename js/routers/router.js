@@ -13,6 +13,7 @@ define([
         routes: {
             "": "home",
             "page/:id": "page",
+            "page/:id/:direction": "page",
             "apps/": "apps"
         },
 
@@ -37,11 +38,13 @@ define([
                     id = parseInt(id);
                     if (gap === -1) {
                         if (id > 1) {
-                            me.page(id - 1, 0);
+                            //me.page(id - 1, 0);
+                            me.navigate("page/"+(id - 1)+"/0", true);
                         }
                     } else {
                         if ((id + 1) <= pageSize) {
-                            me.page(id + 1, 1);
+                            //me.page(id + 1, 1);
+                            me.navigate("page/"+(id + 1)+"/1", true);
                         }
                     }
                 }
@@ -56,13 +59,16 @@ define([
 
         home: function () {
             console.log("[hp4m router] Home call");
-            this.page("1", 1);
+            //this.page("1", 1);
+            this.navigate("page/1", true);
         },
 
         page: function (id, direction) {
             var refId,
                 viewName,
                 me = this;
+
+            direction = (direction ? parseInt(direction) : 0 );
 
             function _callback(obj) {
                 me.refs.navbarModel.set(obj);
