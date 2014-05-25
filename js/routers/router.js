@@ -8,7 +8,7 @@ define([
 ], function ($, Backbone, keyrouter, Navbar, NavbarView) {
     'use strict';
 
-    var hp4mRouter = Backbone.Router.extend({
+    var todomvcspa = Backbone.Router.extend({
 
         routes: {
             "": "home",
@@ -23,7 +23,7 @@ define([
 
         initialize: function () {
             var me = this;
-            console.log("[hp4m router] Initialized");
+            console.log("[todomvcspa router] Initialized");
 
             // Navigation bar
             this.refs.navbarModel = new Navbar();
@@ -58,7 +58,7 @@ define([
         },
 
         home: function () {
-            console.log("[hp4m router] Home call");
+            console.log("[todomvcspa router] Home call");
             //this.page("1", 1);
             this.navigate("page/1", true);
         },
@@ -103,7 +103,7 @@ define([
 
             }
 
-            console.log("[hp4m page] moving to page: ", id);
+            console.log("[todomvcspa page] moving to page: ", id);
 
             // Initialize the application view
             if (id) {
@@ -135,10 +135,10 @@ define([
         },
 
         apps: function () {
-            console.log("[hp4m router] Apps call");
+            console.log("[todomvcspa router] Apps call");
             this.$el.empty();
         }
     });
 
-    return hp4mRouter;
+    return todomvcspa;
 });

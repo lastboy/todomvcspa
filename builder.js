@@ -8,7 +8,7 @@ var _fs = require("fs.extra"),
     content;
 
 function _clean() {
-    var path = "css/hp4m.css";
+    var path = "css/todomvcspa.css";
     if (_fs.existsSync(path)) {
         _fs.unlinkSync(path);
     }
@@ -22,7 +22,7 @@ function _generate() {
         if (e) {
             console.error("error occured while parsing the content: ",e);
         }
-        _fs.writeFileSync( "./css/hp4m.css", model.toCSS({ compress: false }) );
+        _fs.writeFileSync( "./css/todomvcspa.css", model.toCSS({ compress: false }) );
     });
 }
 

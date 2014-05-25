@@ -42,7 +42,7 @@ require([
     'routers/router'
 ], function (Backbone, Workspace) {
 
-    console.log("[hp4m require] initialized")
+    console.log("[todomvcspa require] initialized")
 	/*jshint nonew:false*/
 
 	// Initialize routing and start Backbone.history()

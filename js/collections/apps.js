@@ -12,7 +12,7 @@ define([
 		model: App,
 
         initialize: function () {
-            console.log("[hp4m app collection] Initialized");
+            console.log("[todomvcspa app collection] Initialized");
         },
 
         url: "data/apps.json"

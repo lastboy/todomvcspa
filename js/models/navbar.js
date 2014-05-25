@@ -13,7 +13,7 @@ define([
         localStorage: new Store('navbar-backbone'),
 
         initialize: function () {
-            console.log("[hp4m app model] Initialized");
+            console.log("[todomvcspa app model] Initialized");
         }
 	});
 
