@@ -5,7 +5,7 @@ Single Page Application skeleton project based on [TodoMVC](http://todomvc.com/)
 The project has a built-in [CATJS](https://github.com/catjsteam) (Web Automation Framework) tests
 
 # Demo
-Click [here] to view a demo application
+Click [here](http://lastboy.github.io/apps/todomvcspa/index.html) to view a demo application
 
 # Custom the project
 The project contains 4 static pages. You can add/remove/extend those pages and link it to any model you would like to.
