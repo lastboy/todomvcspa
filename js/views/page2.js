@@ -32,6 +32,31 @@ define([
         render: function (options) {
             this.super("render",[options]);
 
+            var top = 20,
+                techs = ["backbone", "jquery", "underscorejs", "requirejs", "lesscss", "jquery.mousewheel", "lesshat"],
+                techelt = $(this.$el).find("#techs");
+
+
+            techs.forEach(function(tech) {
+                techelt.append("<div class='standout'>" + tech + "</div>");
+
+            });
+
+
+            techelt.children().each(function() {
+                $(this).animate({
+                    top: top,
+                    left: 20,
+                    opacity: 1,
+                    paddingLeft: 40
+
+                }, 1000, function () {
+                    // Animation complete.
+
+                });
+                top += 40;
+            });
+
 
             return this;
         },
