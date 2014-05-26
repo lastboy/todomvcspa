@@ -3,15 +3,18 @@ define([
     'backbone',
     'routers/uirouter',
     'models/navbar',
-    'views/navbar'
+    'views/navbar',
+    'views/mobile',
+    'utils/device'
 
-], function ($, Backbone, keyrouter, Navbar, NavbarView) {
+], function ($, Backbone, keyrouter, Navbar, NavbarView, MobileView, device) {
     'use strict';
 
     var todomvcspa = Backbone.Router.extend({
 
         routes: {
             "": "home",
+            "mobile": "mobile",
             "page/:id": "page",
             "page/:id/:direction": "page",
             "apps/": "apps"
@@ -25,31 +28,40 @@ define([
             var me = this;
             console.log("[todomvcspa router] Initialized");
 
-            // Navigation bar
-            this.refs.navbarModel = new Navbar();
-            new NavbarView({model: this.refs.navbarModel});
+            if (!device.isDevice()) {
 
-            // key router
-            me.uiroutercallback = function (gap) {
-                var id = me.refs.navbarModel.get("id"),
-                    pageSize = parseInt(me.pagesSize());
+                // Navigation bar
+                this.refs.navbarModel = new Navbar();
+                new NavbarView({model: this.refs.navbarModel});
 
-                if (id) {
-                    id = parseInt(id);
-                    if (gap === -1) {
-                        if (id > 1) {
-                            //me.page(id - 1, 0);
-                            me.navigate("page/"+(id - 1)+"/0", true);
-                        }
-                    } else {
-                        if ((id + 1) <= pageSize) {
-                            //me.page(id + 1, 1);
-                            me.navigate("page/"+(id + 1)+"/1", true);
+                // key router
+                me.uiroutercallback = function (gap) {
+                    var id = me.refs.navbarModel.get("id"),
+                        pageSize = parseInt(me.pagesSize());
+
+                    if (id) {
+                        id = parseInt(id);
+                        if (gap === -1) {
+                            if (id > 1) {
+                                //me.page(id - 1, 0);
+                                me.navigate("page/" + (id - 1) + "/0", true);
+                            }
+                        } else {
+                            if ((id + 1) <= pageSize) {
+                                //me.page(id + 1, 1);
+                                me.navigate("page/" + (id + 1) + "/1", true);
+                            }
                         }
                     }
-                }
-            };
-            keyrouter.init(me.uiroutercallback);
+                };
+                keyrouter.init(me.uiroutercallback);
+            }
+        },
+
+        mobile: function () {
+
+            var mobileView = new MobileView();
+
 
         },
 
@@ -59,8 +71,12 @@ define([
 
         home: function () {
             console.log("[todomvcspa router] Home call");
-            //this.page("1", 1);
-            this.navigate("page/1", true);
+
+            if (!device.isDevice()) {
+                this.navigate("page/1", true);
+            } else {
+                this.navigate("mobile", true);
+            }
         },
 
         page: function (id, direction) {
@@ -86,7 +102,7 @@ define([
                 // render the view
                 if (parseInt(me.pages.previous) !== parseInt(me.pages.current)) {
 
-                    me.pages[me.pages.previous].render({id:me.pages.previous, direction: direction, status: 1, callback: function () {
+                    me.pages[me.pages.previous].render({id: me.pages.previous, direction: direction, status: 1, callback: function () {
 
                         me.pages[id].render({d: id, direction: direction, status: 0});
 
@@ -95,7 +111,7 @@ define([
 
                 } else {
 
-                    me.pages[id].render({id:id, direction: direction, status: 0});
+                    me.pages[id].render({id: id, direction: direction, status: 0});
                 }
 
 

@@ -102,7 +102,7 @@ define([
             }
 
             top = (me.options.direction === 1 ? ((-1)*(me.options.self.topout)) : me.options.self.topout);
-            //top = me.options.self.topout;
+
             this.$el.animate({
                 top: top
 

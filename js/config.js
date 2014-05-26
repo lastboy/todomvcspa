@@ -40,6 +40,7 @@ require.config({
 require([
 	'backbone',
     'routers/router'
+
 ], function (Backbone, Workspace) {
 
     console.log("[todomvcspa require] initialized");
