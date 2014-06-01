@@ -17,4 +17,4 @@ run: <code>node builder.js</code>
 
 # Built-in nodejs server
 * Run: <code>node demo-server.js start</code>
-* Then, rom your favorite browser go to: [http://localhost:8080](http://localhost:8080)
+* Then, from your favorite browser go to: [http://localhost:8080](http://localhost:8080)
