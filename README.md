@@ -11,5 +11,9 @@ Click [here](http://lastboy.github.io/apps/todomvcspa/index.html) to view a demo
 The project contains 4 static pages. You can add/remove/extend those pages and link it to any model you would like to.
 There's a flow transition that can be changed also to whatever your needs are.
 
+# lesscss inside
+A built-in lesscss nodejs module that compiles the less files to a single css file.
+run: <code>node builder.js</code>
+
 # Built-in nodejs server
-run: node demo-server.js start
+run: <code>node demo-server.js start</code>
