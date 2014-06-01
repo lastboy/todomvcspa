@@ -17,15 +17,16 @@ define([
             me.options.pages = {
 
                 page1: {
-                    delay: 500,
+                    delay: 400,
                     top: 50,
-                    topin: 2000,
-                    topout: 2000
+                    topin: 500,
+                    topout: 500
                 },
                 page2: {
+                    delay: 400,
                     top: 50,
-                    topin: 2000,
-                    topout: 2000
+                    topin: 500,
+                    topout: 500
                 }
             };
 
@@ -67,7 +68,8 @@ define([
 
             var top,
                 me = this,
-                topin;
+                topin,
+                mopt = me.options.self;
 
             this.$el.css("opacity", "0");
 
@@ -75,15 +77,15 @@ define([
                 writecallback.call(this);
             }
 
-            topin = (me.options.direction === 0 ? ((-1)*(me.options.self.topin)) : me.options.self.topin);
+            topin = (me.options.direction === 0 ? ((-1)*(mopt.topin)) : mopt.topin);
             this.$el.css("top", topin );
             this.$el.css("opacity", "1");
 
-            top = me.options.self.top;
+            top = mopt.top;
             this.$el.animate({
                 top: top
 
-            }, me.options.delay, function () {
+            }, mopt.delay, function () {
                 // Animation complete.
                 if (callback) {
                     callback.call(me);
@@ -94,19 +96,20 @@ define([
         transitionOut: function (writecallback, callback) {
 
             var top,
-                me = this;
+                me = this,
+                mopt = me.options.self;
 
 
             if (writecallback) {
                 writecallback.call(this);
             }
 
-            top = (me.options.direction === 1 ? ((-1)*(me.options.self.topout)) : me.options.self.topout);
+            top = (me.options.direction === 1 ? ((-1)*(mopt.topout)) : mopt.topout);
 
             this.$el.animate({
                 top: top
 
-            }, me.options.delay, function () {
+            }, mopt.delay, function () {
                 // Animation complete.
                 if (callback) {
                     callback.call(me);
