@@ -16,4 +16,5 @@ A built-in lesscss nodejs module that compiles the less files to a single css fi
 run: <code>node builder.js</code>
 
 # Built-in nodejs server
-run: <code>node demo-server.js start</code>
+* Run: <code>node demo-server.js start</code>
+* Then, rom your favorite browser go to: [http://localhost:8080](http://localhost:8080)
