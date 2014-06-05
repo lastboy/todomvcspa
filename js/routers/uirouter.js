@@ -10,30 +10,38 @@ define([
 
             init: function (callback) {
 
-                var me = this;
+                var me = this,
+                    clearTimeoutKey,
+                    clearTimeoutMouse;
 
                 $(document).keydown(function (e) {
-                    //down//
-                    if (e.keyCode === 40) {
-                        callback.call(me, uirouter.down());
-                    }
-                    //up//
-                    if (e.keyCode === 38) {
-                        callback.call(me, uirouter.up());
-                    }
+                    clearTimeout(clearTimeoutKey);
+                    clearTimeoutKey = setTimeout(function() {
+                        //down//
+                        if (e.keyCode === 40) {
+                            callback.call(me, uirouter.down());
+                        }
+                        //up//
+                        if (e.keyCode === 38) {
+                            callback.call(me, uirouter.up());
+                        }
+                    }, 100);
                 });
 
                 $('#container').mousewheel(function (event) {
 
                     //console.log(event.deltaX, event.deltaY, event.deltaFactor);
+                    clearTimeout(clearTimeoutMouse);
+                    clearTimeoutMouse = setTimeout(function() {
+                        var deltaY = event.deltaY;
+                        if (deltaY < 0) {
+                            callback.call(me, uirouter.down());
 
-                    var deltaY = event.deltaY;
-                    if (deltaY < 0) {
-                        callback.call(me, uirouter.down());
+                        } else {
+                            callback.call(me, uirouter.up());
+                        }
 
-                    } else {
-                        callback.call(me, uirouter.up());
-                    }
+                    }, 100);
 
                 });
 
