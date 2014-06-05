@@ -35,7 +35,8 @@ define([
                 new NavbarView({model: this.refs.navbarModel});
 
                 // key router
-                me.uiroutercallback = function (gap) {
+
+                keyrouter.init(function (gap) {
                     var id = me.refs.navbarModel.get("id"),
                         pageSize = parseInt(me.pagesSize());
 
@@ -53,15 +54,13 @@ define([
                             }
                         }
                     }
-                };
-                keyrouter.init(me.uiroutercallback);
+                });
             }
         },
 
         mobile: function () {
 
             var mobileView = new MobileView();
-
 
         },
 
@@ -90,28 +89,51 @@ define([
                 me.refs.navbarModel.set(obj);
             }
 
+            function _cleanup(excludes) {
+                var n, key,
+                    page;
+
+                for (key in me.pages) {
+                    n = 0;
+                    if (excludes) {
+                        excludes.forEach(function(id) {
+                            if (key === id) {
+                                n++;
+                            }
+                        });
+                    }
+
+                    page = me.pages[key];
+                    if (n === 0 && page && page.cleanup) {
+                        page.cleanup();
+
+                    }
+
+                }
+            }
+
             function _processView(id, view) {
 
                 view = (view || me.refs[refId]);
                 if (!me.pages[id]) {
                     // instantiate the view
                     me.pages[id] = new view({id: id});
-
                 }
+
 
                 // render the view
                 if (parseInt(me.pages.previous) !== parseInt(me.pages.current)) {
 
                     me.pages[me.pages.previous].render({id: me.pages.previous, direction: direction, status: 1, callback: function () {
 
-                        me.pages[id].render({d: id, direction: direction, status: 0});
-
+                        me.pages[id].render({id: id, direction: direction, status: 0});
                     }});
 
 
                 } else {
 
                     me.pages[id].render({id: id, direction: direction, status: 0});
+
                 }
 
 
@@ -124,7 +146,8 @@ define([
             // Initialize the application view
             if (id) {
 
-                console.log("page direction: ", direction);
+                _cleanup();
+
                 me.pages.previous = (me.pages.current || id);
                 me.pages.current = (id || 1);
 

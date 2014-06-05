@@ -8,9 +8,8 @@ define([
 
     var BaseView = Backbone.View.extend({
 
-
-        config: function(id) {
-            var page = "page"+id,
+        config: function (id) {
+            var page = "page" + id,
                 me = this,
                 pageconfig;
 
@@ -32,7 +31,7 @@ define([
 
             pageconfig = me.options.pages[page];
             if (!pageconfig) {
-                pageconfig = me.options.pages["page"+2];
+                pageconfig = me.options.pages["page" + 2];
             }
             return pageconfig;
         },
@@ -47,21 +46,35 @@ define([
             var me = this,
                 callback = options.callback;
 
+            function _transitionCallback() {
+               me.cleanup();
+
+                me.$el.html(me.template({counter: me.options.id}));
+            }
+
             me.options.status = options.status;
             me.options.direction = options.direction;
 
             if (!me.options.status) {
-                this.transitionIn(function () {
-                    me.$el.html(me.template({counter: me.options.id}));
-                }, callback);
+                this.transitionIn(_transitionCallback, callback);
             } else {
-                this.transitionOut(function () {
-                    me.$el.html(me.template({counter: me.options.id}));
-                }, callback);
+                this.transitionOut(_transitionCallback, callback);
             }
 
 
             return this;
+        },
+
+        cleanup: function() {
+            var me = this,
+                page = me.$el.find("#page");
+
+            if (page) {
+                page.remove();
+                page.unbind();
+            }
+            $(this.el).empty();
+            $(this.el).unbind();
         },
 
         transitionIn: function (writecallback, callback) {
@@ -77,8 +90,8 @@ define([
                 writecallback.call(this);
             }
 
-            topin = (me.options.direction === 0 ? ((-1)*(mopt.topin)) : mopt.topin);
-            this.$el.css("top", topin );
+            topin = (me.options.direction === 0 ? ((-1) * (mopt.topin)) : mopt.topin);
+            this.$el.css("top", topin);
             this.$el.css("opacity", "1");
 
             top = mopt.top;
@@ -104,7 +117,7 @@ define([
                 writecallback.call(this);
             }
 
-            top = (me.options.direction === 1 ? ((-1)*(mopt.topout)) : mopt.topout);
+            top = (me.options.direction === 1 ? ((-1) * (mopt.topout)) : mopt.topout);
 
             this.$el.animate({
                 top: top
